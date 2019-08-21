@@ -1,0 +1,34 @@
+<router-outlet></router-outlet>
+<div id="submitCake">
+  <h1>Rate My Cakes</h1>
+  <div id="border">
+    <h4>Submit a cake to be rated</h4>
+    <hr />
+    <form (submit)="submitCake()">
+      <p>Baker Name:</p>
+      <input type="text" name="cake.name" [(ngModel)]="cake.name"/>
+      <p>Image URL:</p>
+      <input type="text" name="cake.img" [(ngModel)]="cake.img"/>
+      <br />
+      <input type="submit" value="SUBMIT" />
+    </form>
+    <p>{{cake | json}}</p>
+  </div>
+</div>
+<div *ngIf="cakes" id="cakes">
+  <div *ngFor="let cake of cakes">
+     <img src="{{cake.img}}" alt="cake" (click)="cakeToShow(cake)">
+    <form (submit)="rateCake(cake._id)" class="rateCake">
+      <!-- <select>
+        <option value="1">1 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="5">5 Stars</option>
+      </select> -->
+      <textarea name="commment.commment" cols="20" rows="5">Type your comment here</textarea>
+      <input type="submit" value="Rate!">
+    </form>
+  </div>
+</div>
+<app-cake *ngIf="viewCake" [cakeToShow]="viewCake"></app-cake>
